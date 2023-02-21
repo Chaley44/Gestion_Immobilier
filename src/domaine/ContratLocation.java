@@ -4,14 +4,15 @@ import java.time.LocalDate;
 
 public class ContratLocation {
 
-	private int id;
+	private Integer id;
 	private String dureeContrat;
 	private LocalDate dateContrat;
 	private String renouvellement;
+	private Location location;
 	
-	public ContratLocation () {}
+	public ContratLocation(){}
 
-	public ContratLocation(int id, String dureeContrat, LocalDate dateContrat, String renouvellement) {
+	public ContratLocation(Integer id, String dureeContrat, LocalDate dateContrat, String renouvellement) {
 		super();
 		this.id = id;
 		this.dureeContrat = dureeContrat;
@@ -19,11 +20,11 @@ public class ContratLocation {
 		this.renouvellement = renouvellement;
 	}
 
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -49,6 +50,14 @@ public class ContratLocation {
 
 	public void setRenouvellement(String renouvellement) {
 		this.renouvellement = renouvellement;
+	}
+
+	public Location getLocation() {
+		return location;
+	}
+
+	public void setLocation(Location location) {
+		this.location = location;
 	}
 	
 	

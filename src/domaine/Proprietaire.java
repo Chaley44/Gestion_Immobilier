@@ -11,7 +11,8 @@ public class Proprietaire extends Personne{
 		
 	}
 
-	public Proprietaire(int id, String numCin, String nom, String prenom, int age, String numTel,
+	public Proprietaire(int id, String numCin, String nom, 
+			String prenom, int age, String numTel,
 			String adressePersonne) {
 		super(id, numCin, nom, prenom, age, numTel, adressePersonne);
 		

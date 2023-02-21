@@ -40,13 +40,12 @@ public class ProprietaireG implements IMetier<Proprietaire, Integer> {
 	@Override
 	public Proprietaire getById(Integer id) {
 		for(Proprietaire o : listeProprietaire) {
-			if(o.getId()== id) {
+			if(o.getId().equals(id)) {
 				return o;
 			}
 		}
 		return null;
 	}
-
 	
 
 }

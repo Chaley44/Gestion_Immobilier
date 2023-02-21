@@ -2,16 +2,18 @@ package domaine;
 
 public class Bien {
 
-	private int id;
+	private Integer id;
 	private String adresse;
 	private String ville;
 	private int nbrPiece;
 	private float surface;
 	private String type;
+	private Proprietaire proprietaire;
 	
-	public Bien () {}
+	public Bien(){}
 
-	public Bien(int id, String adresse, String ville, int nbrPiece, float surface, String type) {
+	public Bien(Integer id, String adresse, String ville, int nbrPiece, 
+			float surface, String type, Proprietaire proprietaire) {
 		super();
 		this.id = id;
 		this.adresse = adresse;
@@ -19,13 +21,15 @@ public class Bien {
 		this.nbrPiece = nbrPiece;
 		this.surface = surface;
 		this.type = type;
+		this.proprietaire = proprietaire;
 	}
+	
 
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -67,6 +71,14 @@ public class Bien {
 
 	public void setType(String type) {
 		this.type = type;
+	}
+
+	public Proprietaire getProprietaire() {
+		return proprietaire;
+	}
+
+	public void setProprietaire(Proprietaire proprietaire) {
+		this.proprietaire = proprietaire;
 	}
 	
 	

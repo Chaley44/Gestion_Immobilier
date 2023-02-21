@@ -39,7 +39,7 @@ public class LocationG implements IMetier<Location, Integer>{
 	@Override
 	public Location getById(Integer id) {
 		for(Location o : listeLocation) {
-			if(o.getId()== id) {
+			if(o.getId().equals(id)) {
 				return o;
 			}
 		}

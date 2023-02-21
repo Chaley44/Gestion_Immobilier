@@ -39,7 +39,7 @@ public class LocataireG implements IMetier<Locataire, Integer> {
 	@Override
 	public Locataire getById(Integer id) {
 		for(Locataire o : listeLocataire) {
-			if(o.getId()== id) {
+			if(o.getId().equals(id)) {
 				return o;
 			}
 		}

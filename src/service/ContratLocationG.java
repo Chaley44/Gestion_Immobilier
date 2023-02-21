@@ -39,7 +39,7 @@ public class ContratLocationG implements IMetier<ContratLocation, Integer> {
 	@Override
 	public ContratLocation getById(Integer id) {
 		for(ContratLocation o : listeContrat) {
-			if(o.getId()== id) {
+			if(o.getId().equals(id)) {
 				return o;
 			}
 		}

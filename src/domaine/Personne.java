@@ -2,7 +2,7 @@ package domaine;
 
 public abstract class Personne {
 
-	private int id;
+	private Integer id;
 	private String numCin;
 	private String nom;
 	private String prenom;
@@ -14,7 +14,7 @@ public abstract class Personne {
 	public Personne() {}
 
 
-	public Personne(int id, String numCin, String nom, String prenom, int age, String numTel, String adressePersonne) {
+	public Personne(Integer id, String numCin, String nom, String prenom, int age, String numTel, String adressePersonne) {
 		super();
 		this.id = id;
 		this.numCin = numCin;
@@ -26,12 +26,12 @@ public abstract class Personne {
 	}
 
 
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

@@ -1,16 +1,29 @@
 package domaine;
 
+import java.util.List;
+
 public class Locataire extends Personne {
 
+	private List<Location> listLocation;
 	public Locataire() {
 		super();
-		// TODO Auto-generated constructor stub
+		
 	}
 
-	public Locataire(int id, String numCin, String nom, String prenom, int age, String numTel, String adressePersonne) {
+	public Locataire(int id, String numCin, String nom, String prenom,
+			int age, String numTel, String adressePersonne) {
 		super(id, numCin, nom, prenom, age, numTel, adressePersonne);
-		// TODO Auto-generated constructor stub
+		
 	}
+
+	public List<Location> getListLocation() {
+		return listLocation;
+	}
+
+	public void setListLocation(List<Location> listLocation) {
+		this.listLocation = listLocation;
+	}
+	
 
 	
 }

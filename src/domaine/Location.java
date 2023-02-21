@@ -4,24 +4,26 @@ import java.time.LocalDate;
 
 public class Location  {
 
-	private int id;
+	private Integer id;
 	private float prix;
 	private LocalDate dateDebut;
+	private Locataire locataire;
 	
 	public Location() {}
 
-	public Location(int id, float prix, LocalDate dateDebut) {
+	public Location(Integer id, float prix, LocalDate dateDebut) {
 		super();
 		this.id = id;
 		this.prix = prix;
 		this.dateDebut = dateDebut;
 	}
+	
 
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -39,6 +41,14 @@ public class Location  {
 
 	public void setDateDebut(LocalDate dateDebut) {
 		this.dateDebut = dateDebut;
+	}
+
+	public Locataire getLocataire() {
+		return locataire;
+	}
+
+	public void setLocataire(Locataire locataire) {
+		this.locataire = locataire;
 	}
 	
 	
