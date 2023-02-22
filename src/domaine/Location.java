@@ -8,6 +8,7 @@ public class Location  {
 	private float prix;
 	private LocalDate dateDebut;
 	private Locataire locataire;
+	private Bien bien;
 	
 	public Location() {}
 
@@ -49,6 +50,14 @@ public class Location  {
 
 	public void setLocataire(Locataire locataire) {
 		this.locataire = locataire;
+	}
+
+	public Bien getBien() {
+		return bien;
+	}
+
+	public void setBien(Bien bien) {
+		this.bien = bien;
 	}
 	
 	
