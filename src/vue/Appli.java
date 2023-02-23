@@ -9,10 +9,12 @@ public class Appli {
 		//vueLocataire.listerLocataire();
 		
 		VueLocation vueLocation = new VueLocation();
-		//vueLocation.creerLocation();
+		vueLocation.creerLocation();
 		
 		VueContratLocation vueContratLocation = new VueContratLocation();
-		vueContratLocation.listerContratLocation();
+		//vueContratLocation.listerContratLocation();
+		//vueContratLocation.modifierLocataire();
+		
 		//vueBien.listerBienByProprietaire();
 		VueProprietaire vueProprietaire = new VueProprietaire();
 		//vueProprietaire.creerProprietaire();

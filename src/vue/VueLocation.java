@@ -1,22 +1,41 @@
 package vue;
 
 import java.time.LocalDate;
+
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
+import domaine.Bien;
 import domaine.Location;
+import domaine.Proprietaire;
 import service.IMetier;
 import service.LocationG;
 
 public class VueLocation {
 
 
+	VueBien vueBien = new VueBien();
 	public IMetier<Location, Integer> impl = new LocationG();
 	DateTimeFormatter dateTimeFormatter =DateTimeFormatter.ofPattern("dd/MM/yyyy");
 	
 	public  VueLocation() {
-		Location location1 = new Location(1, 12000f, LocalDate.parse("10/02/2023"));
-		Location location2 = new Location(1, 12000f, LocalDate.parse("27/01/2023"));
+		Proprietaire proprietaire1 = new Proprietaire(1, "1234","chaley", "fabrice",
+				21, "774032534", "Ouakam");
+		Proprietaire proprietaire2 = new Proprietaire(2, "4321","charles", "brice",
+				30, "774052638", "Amadie");
+		Bien bien1 = new Bien(1, "Ouakam", "Dakar", 4, 120f, "appartement", proprietaire1 );
+		
+		Bien bien2 = new Bien(2, "Point E", "Dakar", 3, 150f, "appartement", proprietaire2 );
+		
+		
+		Location location1 = new Location(1, 12000f, LocalDate.parse("10/02/2023", dateTimeFormatter));
+		Location location2 = new Location(2, 12000f, LocalDate.parse("27/01/2023", dateTimeFormatter));
+		location1.setBien(bien1);
+		location2.setBien(bien2);
+		impl.creer(location1);
+		impl.creer(location2);
+		
+		
 	}
 	
 	public void listerLocation() {
@@ -46,6 +65,12 @@ public class VueLocation {
 		System.out.print("Date de debut : ");
 		input = scanner.nextLine();
 		location.setDateDebut(LocalDate.parse(input,dateTimeFormatter));
+		
+		vueBien.listerBien();
+		System.out.println("Choisir un bien ");
+		input =scanner.nextLine();
+		location.setBien(vueBien.impl.getById(Integer.parseInt(input)));
+	
 		
 		impl.creer(location);
 		listerLocation();

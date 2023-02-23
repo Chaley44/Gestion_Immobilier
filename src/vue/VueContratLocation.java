@@ -37,15 +37,17 @@ public class VueContratLocation {
 		Bien bien3 = new Bien(3, "Ouakam", "Dakar", 6, 200f, "maison", proprietaire2);
 		vueBien.impl.creer(bien3);
 		
-		Location location1 = new Location(1, 12000f, LocalDate.parse("10/02/2023",dateTimeFormatter));
-		Location location2 = new Location(1, 12000f, LocalDate.parse("27/01/2023",dateTimeFormatter));
+		Location location1 = new Location(1, 12000f, LocalDate.now());
+		Location location2 = new Location(2, 240000f, LocalDate.now());
 		location1.setBien(bien2);
 		location2.setBien(bien1);
 		
-		ContratLocation contratLocation1 = new ContratLocation(1, "6 mois ", LocalDate.parse("12/02/2023", dateTimeFormatter), "6 mois ");
-		ContratLocation contratLocation2 = new ContratLocation(1, "2 an ", LocalDate.parse("21/02/2023", dateTimeFormatter), "1 an ");
+		ContratLocation contratLocation1 = new ContratLocation(1, "6 mois ", LocalDate.now(), "6 mois ");
+		ContratLocation contratLocation2 = new ContratLocation(2, "2 an ", LocalDate.now(), "1 an ");
 		contratLocation1.setLocation(location1);
 		contratLocation2.setLocation(location2);
+		impl.creer(contratLocation1);
+		impl.creer(contratLocation2);
 		
 	}
 	
@@ -73,6 +75,7 @@ public class VueContratLocation {
 			System.out.println("Nom et prenom du proprietaire : " + contratLocation.getLocation().getBien().getProprietaire().getNom()
 					+ " " + contratLocation.getLocation().getBien().getProprietaire().getPrenom());
 			System.out.println("Adresse du Prorpietaire : " + contratLocation.getLocation().getBien().getProprietaire().getAdressePersonne());
+			System.out.println("=============================================");
 
 
 
@@ -105,17 +108,11 @@ public class VueContratLocation {
 		contratLocation.setRenouvellement(input);
 		
 
-		int nombreL = 0;
-		
-		//System.out.println(nombreL);
-		do {
-			vueLocation.listerLocation();
-			System.out.println("Choisir une location ");
-			input =scanner.nextLine();
-			contratLocation.setLocation(vueLocation.impl.getById(Integer.parseInt(input))); ;
-
-			nombreL =1;
-		}while(nombreL > 1);
+		vueLocation.listerLocation();
+		System.out.println("Choisir une location ");
+		input =scanner.nextLine();
+		contratLocation.setLocation(vueLocation.impl.getById(Integer.parseInt(input)));
+	
 		
 		impl.creer(contratLocation);
 		listerContratLocation();
