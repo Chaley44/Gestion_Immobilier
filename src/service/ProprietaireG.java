@@ -3,43 +3,42 @@ package service;
 import java.util.ArrayList;
 import java.util.List;
 
+import dao.DaoProprietaire;
 import domaine.Locataire;
 import domaine.Proprietaire;
 
 public class ProprietaireG implements IMetier<Proprietaire, Integer> {
 
-	List<Proprietaire> listeProprietaire = new ArrayList<>();
+	
+	private  DaoProprietaire bdProprietaire = new DaoProprietaire();
 
 	@Override
 	public List<Proprietaire> liste() {
-		// TODO Auto-generated method stub
-		return listeProprietaire;
+		
+		return bdProprietaire.listerProprietaire();
 	}
 
 	@Override
 	public void creer(Proprietaire o) {
-		listeProprietaire.add(o);
+		bdProprietaire.creerProprietaire(o);
 		
 	}
 
 	@Override
 	public void supprimer(Proprietaire o) {
-		listeProprietaire.remove(o);
+		bdProprietaire.supprimerProprietaire(o);
 		
 	}
 
 	@Override
 	public void modifier(Proprietaire o) {
-		Proprietaire o2 = getById(o.getId());
-		int index = listeProprietaire.indexOf(o2);
-		
-		listeProprietaire.set(index, o);
+		bdProprietaire.modifierProprietaire(o);
 		
 	}
 
 	@Override
 	public Proprietaire getById(Integer id) {
-		for(Proprietaire o : listeProprietaire) {
+		for(Proprietaire o : bdProprietaire.listerProprietaire()) {
 			if(o.getId().equals(id)) {
 				return o;
 			}

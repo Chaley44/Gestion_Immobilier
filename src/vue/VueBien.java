@@ -14,20 +14,7 @@ public class VueBien {
 	VueProprietaire vueProprietaire = new VueProprietaire();
 	
 	public  VueBien() {
-		Proprietaire proprietaire1 = new Proprietaire(1, "1234","chaley", "fabrice",
-				21, "774032534", "Ouakam");
-		Proprietaire proprietaire2 = new Proprietaire(2, "4321","charles", "brice",
-				30, "774052638", "Amadie");
-		vueProprietaire.impl.creer(proprietaire1);
-		vueProprietaire.impl.creer(proprietaire2);
 		
-		
-		Bien bien1 = new Bien(1, "Ouakam", "Dakar", 4, 120f, "appartement", proprietaire1 );
-		impl.creer(bien1);
-		Bien bien2 = new Bien(2, "Point E", "Dakar", 3, 150f, "appartement", proprietaire2 );
-		impl.creer(bien2);
-		Bien bien3 = new Bien(3, "Ouakam", "Dakar", 6, 200f, "maison", proprietaire2);
-		impl.creer(bien3);
 	}
 	
 	public void listerBien() {
@@ -41,8 +28,8 @@ public class VueBien {
 			System.out.println("Nombre de piece : " + bien.getNbrPiece());
 			System.out.println("Surface : " + bien.getSurface());
 			System.out.println("Type : " + bien.getType());
-			System.out.println("Proprietaire : " + bien.getProprietaire().getPrenom()
-					+ " " + bien.getProprietaire().getNom());
+//			System.out.println("Proprietaire : " + bien.getProprietaire().getPrenom()
+//					+ " " + bien.getProprietaire().getNom());
 			
 			System.out.println("-----------------------------------");
 		}
@@ -82,10 +69,6 @@ public class VueBien {
 		Scanner scanner = new Scanner(System.in);
 		String input;
 		
-		System.out.print("Id : ");
-		input = scanner.nextLine();
-		bien.setId(Integer.parseInt(input));
-		
 		System.out.print("Adresse : ");
 		input = scanner.nextLine();
 		bien.setAdresse(input);
@@ -105,6 +88,11 @@ public class VueBien {
 		System.out.print("Type : ");
 		input = scanner.nextLine();
 		bien.setType(input);
+		
+		vueProprietaire.listerProprietaire();
+		System.out.println("Choisir un proprietaire ");
+		input =scanner.nextLine();
+		bien.setProprietaire(vueProprietaire.impl.getById(Integer.parseInt(input)));
 		
 		impl.creer(bien);
 		listerBien();

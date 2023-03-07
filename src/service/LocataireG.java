@@ -3,42 +3,42 @@ package service;
 import java.util.ArrayList;
 
 import java.util.List;
+
+import dao.DaoLocataire;
 import domaine.Locataire;
 
 public class LocataireG implements IMetier<Locataire, Integer> {
 
-	List<Locataire> listeLocataire = new ArrayList<>();
+	
+	private DaoLocataire bdLocataire = new DaoLocataire();
 	
 	@Override
 	public List<Locataire> liste() {
 		// TODO Auto-generated method stub
-		return listeLocataire;
+		return bdLocataire.listerLocataire();
 	}
 
 	@Override
 	public void creer(Locataire o) {
-		listeLocataire.add(o);
+		bdLocataire.creerLocataire(o);
 		
 	}
 
 	@Override
 	public void supprimer(Locataire o) {
-		listeLocataire.remove(o);
+		bdLocataire.supprimerLocataire(o);
 		
 	}
 
 	@Override
 	public void modifier(Locataire o) {
-		Locataire o2 = getById(o.getId());
-		int index = listeLocataire.indexOf(o2);
-		
-		listeLocataire.set(index, o);
+		bdLocataire.modifierLocataire(o);
 		
 	}
 
 	@Override
 	public Locataire getById(Integer id) {
-		for(Locataire o : listeLocataire) {
+		for(Locataire o : bdLocataire.listerLocataire()) {
 			if(o.getId().equals(id)) {
 				return o;
 			}

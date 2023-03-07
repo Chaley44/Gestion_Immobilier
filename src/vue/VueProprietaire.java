@@ -2,6 +2,7 @@ package vue;
 
 import java.util.Scanner;
 
+import dao.DaoProprietaire;
 import domaine.Bien;
 import domaine.Proprietaire;
 import service.IMetier;
@@ -12,12 +13,7 @@ public class VueProprietaire {
 public IMetier<Proprietaire, Integer> impl = new ProprietaireG();
 	
 	public VueProprietaire() {
-		Proprietaire proprietaire1 = new Proprietaire(1, "1234","chaley", "fabrice",
-				21, "774032534", "Ouakam");
-		Proprietaire proprietaire2 = new Proprietaire(2, "4321","charles", "brice",
-				30, "774052638", "Amadie");
-		impl.creer(proprietaire1);
-		impl.creer(proprietaire2);
+		
 	}
 	
 	public void listerProprietaire() {
@@ -36,14 +32,11 @@ public IMetier<Proprietaire, Integer> impl = new ProprietaireG();
 		}
 	}
 	
+	
 	public void creerProprietaire() {
 		Proprietaire proprietaire = new Proprietaire();
 		Scanner scanner = new Scanner(System.in);
 		String input;
-		
-		System.out.print("ID : ");
-		input = scanner.nextLine();
-		proprietaire.setId(Integer.parseInt(input));
 		
 		System.out.print("NIN : ");
 		input = scanner.nextLine();

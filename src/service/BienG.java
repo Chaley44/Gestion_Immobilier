@@ -3,42 +3,39 @@ package service;
 import java.util.ArrayList;
 import java.util.List;
 
+import dao.DaoBien;
 import domaine.Bien;
 
 public class BienG implements IMetier<Bien, Integer>{
 
 	List<Bien> listeBien = new ArrayList<>();
-	
+	private DaoBien bdBien = new DaoBien();
 	@Override
 	public List<Bien> liste() {
 		// TODO Auto-generated method stub
-		return listeBien;
+		return bdBien.listerBien();
 	}
 
 	@Override
 	public void creer(Bien o) {
-		listeBien.add(o);
+		bdBien.creerBien(o);
 		
 	}
 
 	@Override
 	public void supprimer(Bien o) {
-		listeBien.remove(o);
-		
+		bdBien.supprimerBien(o);
 	}
 
 	@Override
 	public void modifier(Bien o) {
-		Bien o2 = getById(o.getId());
-		int index = listeBien.indexOf(o2);
-		
-		listeBien.set(index, o);
+		bdBien.modifierBien(o);
 		
 	}
 
 	@Override
 	public Bien getById(Integer id) {
-		for(Bien o : listeBien) {
+		for(Bien o : bdBien.listerBien()) {
 			if(o.getId().equals(id)) {
 				return o;
 			}
@@ -48,7 +45,7 @@ public class BienG implements IMetier<Bien, Integer>{
 	
 	public List<Bien> listerBienByProprietaire(Integer id) {
 		List<Bien> listBienByPropriete = new ArrayList<>(); 
-		for(Bien o : listeBien) {
+		for(Bien o : bdBien.listerBien()) {
 			if(o.getProprietaire().getId().equals(id)) {
 				listBienByPropriete.add(o);
 				return listBienByPropriete;

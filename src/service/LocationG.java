@@ -5,9 +5,11 @@ import java.util.List;
 
 import domaine.Location;
 
+
 public class LocationG implements IMetier<Location, Integer>{
 
 	List<Location> listeLocation = new ArrayList<>();
+	
 	
 	@Override
 	public List<Location> liste() {

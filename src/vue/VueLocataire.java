@@ -19,12 +19,12 @@ public IMetier<Locataire, Integer> impl = new LocataireG();
 		System.out.println("===================================");
 		for(Locataire locataire : impl.liste()) {
 			System.out.println("id : " + locataire.getId());
-			System.out.println("Type : " + locataire.getNumCin());
+			System.out.println("NIN : " + locataire.getNumCin());
 			System.out.println("Adresse : " + locataire.getAdressePersonne());
-			System.out.println("Ville: " + locataire.getNom());
-			System.out.println("Nombre de piece : " + locataire.getPrenom());
-			System.out.println("Surface : " + locataire.getAge());
-			System.out.println("Type : " + locataire.getNumTel());
+			System.out.println("Nom: " + locataire.getNom());
+			System.out.println("Prenom : " + locataire.getPrenom());
+			System.out.println("Age : " + locataire.getAge());
+			System.out.println("Telephone : " + locataire.getNumTel());
 			System.out.println("-----------------------------------");
 		}
 	}
@@ -34,11 +34,7 @@ public IMetier<Locataire, Integer> impl = new LocataireG();
 		Scanner scanner = new Scanner(System.in);
 		String input;
 		
-		System.out.print("Id : ");
-		input = scanner.nextLine();
-		locataire.setId(Integer.parseInt(input));
-		
-		System.out.print("Numero cin : ");
+		System.out.print("NIN : ");
 		input = scanner.nextLine();
 		locataire.setNumCin(input);
 		
@@ -102,7 +98,7 @@ public IMetier<Locataire, Integer> impl = new LocataireG();
 		locataire= impl.getById(Integer.parseInt(input));
 		impl.supprimer(locataire);
 		
-		listerLocataire();
+		//listerLocataire();
 	}
 	
 	public void modifierLocataire() {
@@ -138,7 +134,7 @@ public IMetier<Locataire, Integer> impl = new LocataireG();
 		locataire.setNumTel(input);
 		
 		impl.modifier(locataire);
-		listerLocataire();
+		//listerLocataire();
 		
 	}
 }
