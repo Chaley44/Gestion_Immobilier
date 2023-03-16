@@ -9,6 +9,7 @@ public class Bien {
 	private float surface;
 	private String type;
 	private Proprietaire proprietaire;
+	private EtatBien etatBien;
 	
 	public Bien(){}
 
@@ -79,6 +80,14 @@ public class Bien {
 
 	public void setProprietaire(Proprietaire proprietaire) {
 		this.proprietaire = proprietaire;
+	}
+
+	public EtatBien getEtatBien() {
+		return etatBien;
+	}
+
+	public void setEtatBien(EtatBien etatBien) {
+		this.etatBien = etatBien;
 	}
 	
 	

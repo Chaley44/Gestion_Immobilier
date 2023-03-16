@@ -68,12 +68,12 @@ public IMetier<Locataire, Integer> impl = new LocataireG();
 		Locataire locataire = new Locataire();
 		Scanner scanner = new Scanner(System.in);
 		String input;
-		System.out.print("Id : ");
-		input = scanner.nextLine();
-		locataire= impl.getById(Integer.parseInt(input));
 		
-		
-		if(impl.liste().contains(locataire)) {
+		try {
+			System.out.print("Id : ");
+			input = scanner.nextLine();
+			locataire= impl.getById(Integer.parseInt(input));
+			
 			System.out.println("id : " + locataire.getId());
 			System.out.println("Type : " + locataire.getNumCin());
 			System.out.println("Adresse : " + locataire.getAdressePersonne());
@@ -82,11 +82,11 @@ public IMetier<Locataire, Integer> impl = new LocataireG();
 			System.out.println("Surface : " + locataire.getAge());
 			System.out.println("Type : " + locataire.getNumTel());
 			System.out.println("-----------------------------------");
-			
-			
-		}else {
-			System.out.println("Le locataire n'existe pas !!");
+				
+		} catch (NullPointerException e) {
+			System.err.println("Le locataire n'existe pas !!");
 		}
+		
 	}
 	
 	public void supprimerLocataire() {
@@ -104,36 +104,41 @@ public IMetier<Locataire, Integer> impl = new LocataireG();
 	public void modifierLocataire() {
 		Locataire locataire = new Locataire();
 		Scanner scanner = new Scanner(System.in);
-		String input;
-		System.out.print("Entrer id : ");
-		input = scanner.nextLine();
-		locataire = impl.getById(Integer.parseInt(input));
+		try {
+			String input;
+			System.out.print("Entrer id : ");
+			input = scanner.nextLine();
+			locataire = impl.getById(Integer.parseInt(input));
+			
+			System.out.print("Numero cin : ");
+			input = scanner.nextLine();
+			locataire.setNumCin(input);
+			
+			System.out.print("Adresse : ");
+			input = scanner.nextLine();
+			locataire.setAdressePersonne(input);
+			
+			System.out.print("Nom : ");
+			input = scanner.nextLine();
+			locataire.setNom(input);
+			
+			System.out.print("Prenom : ");
+			input = scanner.nextLine();
+			locataire.setPrenom(input);
+			
+			System.out.print("Age : ");
+			input = scanner.nextLine();
+			locataire.setAge(Integer.parseInt(input));
+			
+			System.out.print("Numero tel : ");
+			input = scanner.nextLine();
+			locataire.setNumTel(input);
+			
+			impl.modifier(locataire);
+		} catch (NullPointerException e) {
+			System.err.println("Le locataire n'existe pas !!");
+		}
 		
-		System.out.print("Numero cin : ");
-		input = scanner.nextLine();
-		locataire.setNumCin(input);
-		
-		System.out.print("Adresse : ");
-		input = scanner.nextLine();
-		locataire.setAdressePersonne(input);
-		
-		System.out.print("Nom : ");
-		input = scanner.nextLine();
-		locataire.setNom(input);
-		
-		System.out.print("Prenom : ");
-		input = scanner.nextLine();
-		locataire.setPrenom(input);
-		
-		System.out.print("Age : ");
-		input = scanner.nextLine();
-		locataire.setAge(Integer.parseInt(input));
-		
-		System.out.print("Numero tel : ");
-		input = scanner.nextLine();
-		locataire.setNumTel(input);
-		
-		impl.modifier(locataire);
 		//listerLocataire();
 		
 	}

@@ -1,5 +1,6 @@
 package domaine;
 
+import java.sql.Date;
 import java.time.LocalDate;
 
 public class ContratLocation {
@@ -7,6 +8,7 @@ public class ContratLocation {
 	private Integer id;
 	private String dureeContrat;
 	private LocalDate dateContrat;
+	//private Date dateContrat;
 	private String renouvellement;
 	private Location location;
 	
@@ -19,6 +21,13 @@ public class ContratLocation {
 		this.dateContrat = dateContrat;
 		this.renouvellement = renouvellement;
 	}
+//	public ContratLocation(Integer id, String dureeContrat, Date dateContrat, String renouvellement) {
+//		super();
+//		this.id = id;
+//		this.dureeContrat = dureeContrat;
+//		this.dateContrat = dateContrat;
+//		this.renouvellement = renouvellement;
+//	}
 
 	public Integer getId() {
 		return id;
@@ -36,6 +45,7 @@ public class ContratLocation {
 		this.dureeContrat = dureeContrat;
 	}
 
+	
 	public LocalDate getDateContrat() {
 		return dateContrat;
 	}
@@ -43,6 +53,14 @@ public class ContratLocation {
 	public void setDateContrat(LocalDate dateContrat) {
 		this.dateContrat = dateContrat;
 	}
+
+//	public Date getDateContrat() {
+//		return dateContrat;
+//	}
+//
+//	public void setDateContrat(Date dateContrat) {
+//		this.dateContrat = dateContrat;
+//	}
 
 	public String getRenouvellement() {
 		return renouvellement;

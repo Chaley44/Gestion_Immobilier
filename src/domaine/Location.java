@@ -1,11 +1,14 @@
 package domaine;
 
+
 import java.time.LocalDate;
+import java.util.Date;
 
 public class Location  {
 
 	private Integer id;
 	private float prix;
+	//private Date dateDebut;
 	private LocalDate dateDebut;
 	private Locataire locataire;
 	private Bien bien;
@@ -18,6 +21,13 @@ public class Location  {
 		this.prix = prix;
 		this.dateDebut = dateDebut;
 	}
+	
+//	public Location(Integer id, float prix, Date dateDebut) {
+//		super();
+//		this.id = id;
+//		this.prix = prix;
+//		this.dateDebut = dateDebut;
+//	}
 	
 
 	public Integer getId() {
@@ -43,6 +53,14 @@ public class Location  {
 	public void setDateDebut(LocalDate dateDebut) {
 		this.dateDebut = dateDebut;
 	}
+//
+//	public Date getDateDebut() {
+//		return dateDebut;
+//	}
+//
+//	public void setDateDebut(Date dateDebut) {
+//		this.dateDebut = dateDebut;
+//	}
 
 	public Locataire getLocataire() {
 		return locataire;

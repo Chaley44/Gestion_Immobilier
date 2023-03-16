@@ -1,10 +1,10 @@
 package vue;
 
-import java.util.List;
+
 import java.util.Scanner;
 
 import domaine.Bien;
-import domaine.Proprietaire;
+import domaine.EtatBien;
 import service.BienG;
 import service.IMetier;
 
@@ -28,8 +28,9 @@ public class VueBien {
 			System.out.println("Nombre de piece : " + bien.getNbrPiece());
 			System.out.println("Surface : " + bien.getSurface());
 			System.out.println("Type : " + bien.getType());
-//			System.out.println("Proprietaire : " + bien.getProprietaire().getPrenom()
-//					+ " " + bien.getProprietaire().getNom());
+			System.out.println("Etat bien : " + bien.getEtatBien().getEtat());
+			System.out.println("Proprietaire : " + bien.getProprietaire().getPrenom()
+					+ " " + bien.getProprietaire().getNom());
 			
 			System.out.println("-----------------------------------");
 		}
@@ -56,12 +57,6 @@ public class VueBien {
 			}
 			
 		}
-//		if(listBienByProprietaire.isEmpty()) {
-//			System.out.println("Il n'y aps de bien assossier a ce proprietaire");
-//		}else {
-//			
-//		}
-		
 	}
 	
 	public void creerBien() {
@@ -91,8 +86,16 @@ public class VueBien {
 		
 		vueProprietaire.listerProprietaire();
 		System.out.println("Choisir un proprietaire ");
-		input =scanner.nextLine();
-		bien.setProprietaire(vueProprietaire.impl.getById(Integer.parseInt(input)));
+		
+		try {
+			input =scanner.nextLine();
+			bien.setProprietaire(vueProprietaire.impl.getById(Integer.parseInt(input)));
+
+		} catch (NumberFormatException e) {
+			System.out.println("Veuiller entrer un nombre entier");
+			e.getStackTrace();
+		}
+		
 		
 		impl.creer(bien);
 		listerBien();
@@ -104,24 +107,27 @@ public class VueBien {
 		Bien bien = new Bien();
 		Scanner scanner = new Scanner(System.in);
 		String input;
-		System.out.print("Id : ");
-		input = scanner.nextLine();
-		bien= impl.getById(Integer.parseInt(input));
 		
+		try {
+			System.out.print("Id : ");
+			input = scanner.nextLine();
+			bien= impl.getById(Integer.parseInt(input));
 		
-		if(impl.liste().contains(bien)) {
-			System.out.println("ID : " + bien.getId());
+		    System.out.println("ID : " + bien.getId());
 			System.out.println("Adresse : " + bien.getAdresse());
 			System.out.println("Ville: " + bien.getVille());
 			System.out.println("Nombre de piece : " + bien.getNbrPiece());
 			System.out.println("Surface : " + bien.getSurface());
 			System.out.println("Type : " + bien.getType());
+			System.out.println("Etat bien : " + bien.getEtatBien());
+
 			System.out.println("-----------------------------------");
 			
-			
-		}else {
-			System.out.println("La bien n'existe pas !!");
+		} catch (Exception e) {
+			//System.out.println("La bien n'existe pas !!");
+			e.getMessage();
 		}
+		
 	}
 	
 	public void supprimerBien() {
@@ -140,32 +146,36 @@ public class VueBien {
 		Bien bien = new Bien();
 		Scanner scanner = new Scanner(System.in);
 		String input;
-		System.out.print("Entrer id : ");
-		input = scanner.nextLine();
-		bien = impl.getById(Integer.parseInt(input));
-		
-		System.out.print("Adresse : ");
-		input = scanner.nextLine();
-		bien.setAdresse(input);
-		
-		System.out.print("Ville : ");
-		input = scanner.nextLine();
-		bien.setVille(input);
-		
-		System.out.print("Nombre de piece : ");
-		input = scanner.nextLine();
-		bien.setNbrPiece(Integer.parseInt(input));
-		
-		System.out.print("Surface : ");
-		input = scanner.nextLine();
-		bien.setSurface(Integer.parseInt(input));
-		
-		System.out.print("Type : ");
-		input = scanner.nextLine();
-		bien.setType(input);
-		
-		impl.modifier(bien);
-		listerBien();
+		try {
+			System.out.print("Entrer id : ");
+			input = scanner.nextLine();
+			bien = impl.getById(Integer.parseInt(input));
+			
+			System.out.print("Adresse : ");
+			input = scanner.nextLine();
+			bien.setAdresse(input);
+			
+			System.out.print("Ville : ");
+			input = scanner.nextLine();
+			bien.setVille(input);
+			
+			System.out.print("Nombre de piece : ");
+			input = scanner.nextLine();
+			bien.setNbrPiece(Integer.parseInt(input));
+			
+			System.out.print("Surface : ");
+			input = scanner.nextLine();
+			bien.setSurface(Integer.parseInt(input));
+			
+			System.out.print("Type : ");
+			input = scanner.nextLine();
+			bien.setType(input);
+			
+			impl.modifier(bien);
+			listerBien();
+		} catch (NullPointerException e) {
+			System.out.println("Le bien n'existe pas !!");
+		}
 		
 	}
 }

@@ -1,6 +1,14 @@
 package vue;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.Scanner;
+
+import dao.CreerConnexion;
+import dao.DaoProprietaire;
+import domaine.Bien;
+import domaine.EtatBien;
+import domaine.Proprietaire;
 
 public class Appli {
 
@@ -15,7 +23,7 @@ public class Appli {
 		int choix;
 		
 		do {
-			System.out.println("==========================");
+			System.out.println("+++++++++++++++++++++++++++");
 			System.out.println(" Menu Principal");
 			System.out.println("1 : Menu Proprietaire");
 			System.out.println("2 : Menu Locataire");
@@ -61,14 +69,15 @@ public class Appli {
 		int choix;
 		
 		do {
-		System.out.println("==========================");
+		System.out.println("+++++++++++++++++++++++++++");
 		System.out.println(" Menu Bien");
 		System.out.println("0 : Menu principal");
 		System.out.println("1 : liste des Bien");
-		System.out.println("2 : creer un Bien");
-		System.out.println("3 : modifier un Bien");
-		System.out.println("4 : rechercher un Bien");
-		System.out.println("5 : supprimer un Bien");
+		System.out.println("2 : liste Bien par proprietaire");
+		System.out.println("3 : creer un Bien");
+		System.out.println("4 : modifier un Bien");
+		System.out.println("5 : rechercher un Bien");
+		System.out.println("6 : supprimer un Bien");
 		System.out.println();
 		
 		System.out.print("votre choix ");
@@ -96,7 +105,7 @@ public class Appli {
 			break;
 		
 		}
-	}while(choix!=6);
+	}while(choix!=7);
 	}
 	public static void menuProprietaire() {
 		Scanner scanner = new Scanner(System.in);
@@ -105,7 +114,7 @@ public class Appli {
 		int choix;
 		
 		do {
-			System.out.println("==========================");
+			System.out.println("+++++++++++++++++++++++++++");
 			System.out.println(" Menu Proprietaire");
 			System.out.println("0 : Menu principal");
 			System.out.println("1 : liste des proprietaires");
@@ -150,7 +159,7 @@ public class Appli {
 		int choix;
 		
 		do {
-			System.out.println("==========================");
+			System.out.println("+++++++++++++++++++++++++++");
 			System.out.println(" Menu Locataires");
 			System.out.println("0 : Menu Principal");
 			System.out.println("1 : liste des locataires");
@@ -193,7 +202,7 @@ public class Appli {
 		int choix;
 		
 		do {
-			System.out.println("==========================");
+			System.out.println("+++++++++++++++++++++++++++");
 			System.out.println(" Menu Location");
 			System.out.println("0 : Menu principal");
 			System.out.println("1 : liste des Contrat Locations");
@@ -236,7 +245,7 @@ public class Appli {
 		int choix;
 		
 		do {
-			System.out.println("==========================");
+			System.out.println("+++++++++++++++++++++++++++");
 			System.out.println(" Menu Location");
 			System.out.println("0 : Menu principal");
 			System.out.println("1 : liste des locations");

@@ -15,16 +15,12 @@ public class DaoLocataire {
 	
 	public List<Locataire> listerLocataire() {
 		List<Locataire> listeLo = new ArrayList<>();
+		CreerConnexion creerConnexion = new CreerConnexion();
 		try {
-			//Chargement du pilote
-			Class.forName("com.mysql.cj.jdbc.Driver");
-			
-			//Connexion a la bd
-			Connection con = DriverManager.getConnection("jdbc:mysql://localHost:3306/gestion_immobiliere",
-					"root", "");
+		
 			
 			//Creation de requete
-			PreparedStatement ts = con.prepareStatement(" select * from locataire");
+			PreparedStatement ts = creerConnexion.getCon().prepareStatement(" select * from locataire");
 			
 			//Execute la requete
 			ResultSet rs = ts.executeQuery();
@@ -43,7 +39,7 @@ public class DaoLocataire {
 				listeLo.add(locataire);
 			}
 			
-			con.close();
+			creerConnexion.getCon().close();
 			rs.close();
 			ts.close();
 			
@@ -54,16 +50,50 @@ public class DaoLocataire {
 		return listeLo;
 	}
 	
-	public void creerLocataire(Locataire locataire) {
+	public Locataire findLocataire(int id) {
+		Locataire locataire = new Locataire();
+		CreerConnexion creerConnexion = new CreerConnexion();
 		try {
-			//Chargement du pilote
-			Class.forName("com.mysql.cj.jdbc.Driver");
+		
 			
-			//Connexion a la bd
-			Connection con = DriverManager.getConnection("jdbc:mysql://localHost:3306/gestion_immobiliere",
-					"root", "");
 			//Creation de requete
-			PreparedStatement pst = con.prepareStatement("insert into locataire(numCin, nom, prenom, age, numTel, adressePersonne)" 
+			PreparedStatement pst = creerConnexion.getCon().prepareStatement(""
+					+ " select * from locataire where id = ?");
+			pst.setInt(1, id);
+			//Execute la requete
+			ResultSet rs = pst.executeQuery();
+			
+			//affichage des resultat obtenus
+			while(rs.next()) {
+				//initialistaion du Locataire
+				
+				locataire.setId(rs.getInt("Id"));
+				locataire.setNumCin(rs.getString(2));
+				locataire.setNom(rs.getString(3));
+				locataire.setPrenom(rs.getString(4));
+				locataire.setAge(rs.getInt(5));
+				locataire.setNumTel(rs.getString(6));
+				locataire.setAdressePersonne(rs.getString(7));
+				
+			}
+			
+			creerConnexion.getCon().close();
+			rs.close();
+			pst.close();
+			
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			
+		}
+		return locataire;
+	}
+	
+	public void creerLocataire(Locataire locataire) {
+		CreerConnexion creerConnexion = new CreerConnexion();
+		try {
+			
+			//Creation de requete
+			PreparedStatement pst = creerConnexion.getCon().prepareStatement("insert into locataire(numCin, nom, prenom, age, numTel, adressePersonne)" 
 					+ "values(?, ?, ?, ?, ?, ?)");
 			pst.setString(1, locataire.getNumCin());
 			pst.setString(2, locataire.getNom());
@@ -78,7 +108,7 @@ public class DaoLocataire {
 		
 			
 			
-			con.close();
+			creerConnexion.getCon().close();
 			pst.close();
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
@@ -88,15 +118,11 @@ public class DaoLocataire {
 	}
 	
 	public void modifierLocataire(Locataire locataire) {
+		CreerConnexion creerConnexion = new CreerConnexion();
 		try {
-			//Chargement du pilote
-			Class.forName("com.mysql.cj.jdbc.Driver");
 			
-			//Connexion a la bd
-			Connection con = DriverManager.getConnection("jdbc:mysql://localHost:3306/gestion_immobiliere",
-					"root", "");
 			//Creation de requete
-			PreparedStatement pst = con.prepareStatement("update locataire set numCin = ? ,nom = ? ,"
+			PreparedStatement pst = creerConnexion.getCon().prepareStatement("update locataire set numCin = ? ,nom = ? ,"
 					+ "prenom = ? ,age = ?,numTel = ?, adressePersonne = ? where Id = ?") ;
 
 			pst.setString(1, locataire.getNumCin());
@@ -111,7 +137,7 @@ public class DaoLocataire {
 			pst.executeUpdate();
 			System.out.println("Modification efectuée");	
 			
-			con.close();
+			creerConnexion.getCon().close();
 			pst.close();
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
@@ -120,22 +146,18 @@ public class DaoLocataire {
 	}
 	
 	public void supprimerLocataire(Locataire locataire) {
+		CreerConnexion creerConnexion = new CreerConnexion();
 		try {
-			//Chargement du pilote
-			Class.forName("com.mysql.cj.jdbc.Driver");
 			
-			//Connexion a la bd
-			Connection con = DriverManager.getConnection("jdbc:mysql://localHost:3306/gestion_immobiliere",
-					"root", "");
 			
 			//Creation de requete
-			PreparedStatement pst = con.prepareStatement("delete from locataire where id= ? "); 
+			PreparedStatement pst = creerConnexion.getCon().prepareStatement("delete from locataire where id= ? "); 
 			pst.setInt(1, locataire.getId());
 			//execution de la requete
 			pst.executeUpdate();
 			System.out.println("Suppression effectuée");
 			
-			con.close();
+			creerConnexion.getCon().close();
 			pst.close();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

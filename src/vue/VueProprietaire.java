@@ -77,7 +77,11 @@ public IMetier<Proprietaire, Integer> impl = new ProprietaireG();
 		proprietaire= impl.getById(Integer.parseInt(input));
 		
 		
-		if(impl.liste().contains(proprietaire)) {
+		if(proprietaire.equals(null)) {
+			System.out.println("Le proprietaire n'existe pas !!");
+				
+		}else {
+			
 			System.out.println("id : " + proprietaire.getId());
 			System.out.println("Type : " + proprietaire.getNumCin());
 			System.out.println("Adresse : " + proprietaire.getAdressePersonne());
@@ -86,10 +90,6 @@ public IMetier<Proprietaire, Integer> impl = new ProprietaireG();
 			System.out.println("Surface : " + proprietaire.getAge());
 			System.out.println("Type : " + proprietaire.getNumTel());
 			System.out.println("-----------------------------------");
-			
-			
-		}else {
-			System.out.println("Le proprietaire n'existe pas !!");
 		}
 	}
 	
@@ -113,32 +113,39 @@ public IMetier<Proprietaire, Integer> impl = new ProprietaireG();
 		input = scanner.nextLine();
 		proprietaire = impl.getById(Integer.parseInt(input));
 		
-		System.out.print("NIN : ");
-		input = scanner.nextLine();
-		proprietaire.setNumCin(input);
+		try {
+			System.out.print("NIN : ");
+			input = scanner.nextLine();
+			proprietaire.setNumCin(input);
+			
+			System.out.print("Adresse : ");
+			input = scanner.nextLine();
+			proprietaire.setAdressePersonne(input);
+			
+			System.out.print("Nom : ");
+			input = scanner.nextLine();
+			proprietaire.setNom(input);
+			
+			System.out.print("Prenom : ");
+			input = scanner.nextLine();
+			proprietaire.setPrenom(input);
+			
+			System.out.print("Age : ");
+			input = scanner.nextLine();
+			proprietaire.setAge(Integer.parseInt(input));
+			
+			System.out.print("Telephone : ");
+			input = scanner.nextLine();
+			proprietaire.setNumTel(input);
+			
+			impl.modifier(proprietaire);
+			listerProprietaire();
+		} catch (NullPointerException e) {
+			System.err.println("le proprietaire n'existe pas!!");
+			e.getMessage();
+		}
 		
-		System.out.print("Adresse : ");
-		input = scanner.nextLine();
-		proprietaire.setAdressePersonne(input);
 		
-		System.out.print("Nom : ");
-		input = scanner.nextLine();
-		proprietaire.setNom(input);
-		
-		System.out.print("Prenom : ");
-		input = scanner.nextLine();
-		proprietaire.setPrenom(input);
-		
-		System.out.print("Age : ");
-		input = scanner.nextLine();
-		proprietaire.setAge(Integer.parseInt(input));
-		
-		System.out.print("Telephone : ");
-		input = scanner.nextLine();
-		proprietaire.setNumTel(input);
-		
-		impl.modifier(proprietaire);
-		listerProprietaire();
 		
 	}
 }

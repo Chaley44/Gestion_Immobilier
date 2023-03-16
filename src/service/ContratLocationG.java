@@ -3,42 +3,41 @@ package service;
 import java.util.ArrayList;
 import java.util.List;
 
+import dao.DaoContratLocation;
 import domaine.ContratLocation;
 
 public class ContratLocationG implements IMetier<ContratLocation, Integer> {
 
 	List<ContratLocation> listeContrat = new ArrayList<>();
+	private DaoContratLocation bdContrat = new DaoContratLocation();
 	
 	@Override
 	public List<ContratLocation> liste() {
 		// TODO Auto-generated method stub
-		return listeContrat;
+		return bdContrat.listerContratLocation();
 	}
 
 	@Override
 	public void creer(ContratLocation o) {
-		listeContrat.add(o);
+		bdContrat.creerContratLocation(o);
 		
 	}
 
 	@Override
 	public void supprimer(ContratLocation o) {
-		listeContrat.remove(o);
+		bdContrat.supprimerContratLocation(o);
 		
 	}
 
 	@Override
 	public void modifier(ContratLocation o) {
-		ContratLocation o2 = getById(o.getId());
-		int index = listeContrat.indexOf(o2);
-		
-		listeContrat.set(index, o);
+		bdContrat.modifierContratLocation(o);
 		
 	}
 
 	@Override
 	public ContratLocation getById(Integer id) {
-		for(ContratLocation o : listeContrat) {
+		for(ContratLocation o : bdContrat.listerContratLocation()) {
 			if(o.getId().equals(id)) {
 				return o;
 			}

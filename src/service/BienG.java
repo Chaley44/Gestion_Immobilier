@@ -35,7 +35,7 @@ public class BienG implements IMetier<Bien, Integer>{
 
 	@Override
 	public Bien getById(Integer id) {
-		for(Bien o : bdBien.listerBien()) {
+		for(Bien o: bdBien.listerBien()) {
 			if(o.getId().equals(id)) {
 				return o;
 			}
@@ -44,14 +44,7 @@ public class BienG implements IMetier<Bien, Integer>{
 	}
 	
 	public List<Bien> listerBienByProprietaire(Integer id) {
-		List<Bien> listBienByPropriete = new ArrayList<>(); 
-		for(Bien o : bdBien.listerBien()) {
-			if(o.getProprietaire().getId().equals(id)) {
-				listBienByPropriete.add(o);
-				return listBienByPropriete;
-			}
-		}
-		return null;
+		return bdBien.listerBienByProprietaire(id);
 	}
 
 }

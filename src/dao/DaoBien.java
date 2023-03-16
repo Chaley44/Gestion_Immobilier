@@ -9,22 +9,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 import domaine.Bien;
+import domaine.EtatBien;
+import domaine.Proprietaire;
 
 public class DaoBien {
 
 	
 	public List<Bien> listerBien() {
 		List<Bien> listeBien = new ArrayList<>();
+		DaoProprietaire pDao = new DaoProprietaire();
+		CreerConnexion creerConnexion = new CreerConnexion();
 		try {
-			//Chargement du pilote
-			Class.forName("com.mysql.cj.jdbc.Driver");
-			
-			//Connexion a la bd
-			Connection con = DriverManager.getConnection("jdbc:mysql://localHost:3306/gestion_immobiliere",
-					"root", "");
 			
 			//Creation de requete
-			PreparedStatement ts = con.prepareStatement(" select * from bien");
+			PreparedStatement ts = creerConnexion.getCon().prepareStatement(" select * from bien b left join "
+					+ "proprietaire p on b.id_proprietaire = p.id");
 			
 			//Execute la requete
 			ResultSet rs = ts.executeQuery();
@@ -40,10 +39,15 @@ public class DaoBien {
 				bien.setSurface(rs.getFloat(5));
 				bien.setType(rs.getString(6));
 				
+				int idProprietaire = rs.getInt(7);
+				Proprietaire proprietaire = pDao.findProprietaire(idProprietaire);
+				bien.setProprietaire(proprietaire);
+				
+				
 				listeBien.add(bien);
 			}
 			
-			con.close();
+			creerConnexion.getCon().close();
 			rs.close();
 			ts.close();
 			
@@ -54,22 +58,114 @@ public class DaoBien {
 		return listeBien;
 	}
 	
-	public void creerBien(Bien bien) {
+	public List<Bien> listerBienByProprietaire(int id) {
+		List<Bien> listeBien = new ArrayList<>();
+		DaoProprietaire pDao = new DaoProprietaire();
+		CreerConnexion creerConnexion = new CreerConnexion();
 		try {
-			//Chargement du pilote
-			Class.forName("com.mysql.cj.jdbc.Driver");
 			
-			//Connexion a la bd
-			Connection con = DriverManager.getConnection("jdbc:mysql://localHost:3306/gestion_immobiliere",
-					"root", "");
 			//Creation de requete
-			PreparedStatement pst = con.prepareStatement("insert into bien(adresse, ville, nbrPiece, surface, type)" 
-					+ "values(?, ?, ?, ?, ?)");
+			PreparedStatement pst = creerConnexion.getCon().prepareStatement(" select * from "
+					+ "bien b join proprietaire p on b.id_proprietaire = "
+					+ "p.id where p.id =?;");
+			
+			pst.setInt(1, id);
+			//Execute la requete
+			ResultSet rs = pst.executeQuery();
+			
+			//affichage des resultat obtenus
+			while(rs.next()) {
+				//initialistaion du Bien
+				Bien bien = new Bien();
+				bien.setId(rs.getInt("id"));
+				bien.setAdresse(rs.getString(2));
+				bien.setVille(rs.getString(3));
+				bien.setNbrPiece(rs.getInt(4));
+				bien.setSurface(rs.getFloat(5));
+				bien.setType(rs.getString(6));
+				
+				int idProprietaire = rs.getInt(7);
+				Proprietaire proprietaire = pDao.findProprietaire(idProprietaire);
+				bien.setProprietaire(proprietaire);
+				
+				String etatBien = rs.getString(8);
+				bien.setEtatBien(EtatBien.valueOf(etatBien));
+				
+				
+				listeBien.add(bien);
+			}
+			
+			creerConnexion.getCon().close();
+			rs.close();
+			pst.close();
+			
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			
+		}
+		return listeBien;
+	}
+	
+	public Bien findBien(int id) {
+		Bien bien = new Bien();
+		CreerConnexion creerConnexion = new CreerConnexion();
+		DaoProprietaire pDao = new DaoProprietaire();
+		try {
+				
+			//Creation de requete
+			PreparedStatement pst = creerConnexion.getCon().prepareStatement(
+					" select * from bien where id = ?");
+			pst.setInt(1, id);
+			//Execute la requete
+			ResultSet rs = pst.executeQuery();
+			
+			//affichage des resultat obtenus
+			while(rs.next()) {
+				//initialistaion du Bien
+				
+				bien.setId(rs.getInt("id"));
+				bien.setAdresse(rs.getString(2));
+				bien.setVille(rs.getString(3));
+				bien.setNbrPiece(rs.getInt(4));
+				bien.setSurface(rs.getFloat(5));
+				bien.setType(rs.getString(6));
+
+				int idProprietaire = rs.getInt(7);
+				Proprietaire proprietaire = pDao.findProprietaire(idProprietaire);
+				bien.setProprietaire(proprietaire);
+				
+				String etatBien = rs.getString(8);
+				bien.setEtatBien(EtatBien.valueOf(etatBien));
+				
+			}
+			
+			creerConnexion.getCon().close();
+			rs.close();
+			pst.close();
+			
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			
+		}
+		return bien;
+	}
+	
+	
+	
+	public void creerBien(Bien bien) {
+		CreerConnexion creerConnexion = new CreerConnexion();
+		try {
+			
+			//Creation de requete
+			PreparedStatement pst = creerConnexion.getCon().prepareStatement("insert into bien(adresse, ville,"
+					+ " nbrPiece, surface, type, id_proprietaire)" 
+					+ "values(?, ?, ?, ?, ?,?)");
 			pst.setString(1, bien.getAdresse());
 			pst.setString(2, bien.getVille());
 			pst.setInt(3, bien.getNbrPiece());
 			pst.setFloat(4, bien.getSurface());
 			pst.setString(5, bien.getType());
+			pst.setInt(6, bien.getProprietaire().getId());
 			
 			
 			//Execute la requete
@@ -78,7 +174,7 @@ public class DaoBien {
 		
 			
 			
-			con.close();
+			creerConnexion.getCon().close();
 			pst.close();
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
@@ -88,15 +184,11 @@ public class DaoBien {
 	}
 	
 	public void modifierBien(Bien bien) {
+		CreerConnexion creerConnexion = new CreerConnexion();
 		try {
-			//Chargement du pilote
-			Class.forName("com.mysql.cj.jdbc.Driver");
-			
-			//Connexion a la bd
-			Connection con = DriverManager.getConnection("jdbc:mysql://localHost:3306/gestion_immobiliere",
-					"root", "");
+		
 			//Creation de requete
-			PreparedStatement pst = con.prepareStatement("update bien set numCin = ? ,nom = ? ,"
+			PreparedStatement pst = creerConnexion.getCon().prepareStatement("update bien set numCin = ? ,nom = ? ,"
 					+ "prenom = ? ,age = ?,numTel = ?, adressePersonne = ? where Id = ?") ;
 
 			pst.setString(1, bien.getAdresse());
@@ -110,7 +202,7 @@ public class DaoBien {
 			pst.executeUpdate();
 			System.out.println("Modification eefectuée");	
 			
-			con.close();
+			creerConnexion.getCon().close();
 			pst.close();
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
@@ -119,22 +211,18 @@ public class DaoBien {
 	}
 	
 	public void supprimerBien(Bien bien) {
+		CreerConnexion creerConnexion = new CreerConnexion();
 		try {
-			//Chargement du pilote
-			Class.forName("com.mysql.cj.jdbc.Driver");
 			
-			//Connexion a la bd
-			Connection con = DriverManager.getConnection("jdbc:mysql://localHost:3306/db_cours",
-					"root", "");
 			
 			//Creation de requete
-			PreparedStatement pst = con.prepareStatement("delete bien where id= ? "); 
+			PreparedStatement pst = creerConnexion.getCon().prepareStatement("delete bien where id= ? "); 
 			pst.setInt(1, bien.getId());
 			//execution de la requete
 			pst.executeUpdate();
 			System.out.println("Suppression effectuée");
 			
-			con.close();
+			creerConnexion.getCon().close();
 			pst.close();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
